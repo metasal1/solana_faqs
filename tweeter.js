@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import OAuth from 'oauth-1.0a';
 import dotenv from 'dotenv';
-
+import fetch from 'node-fetch';
 dotenv.config();
 
 const access_token = process.env.TWITTER_ACCESS_TOKEN_SOLANA_FAQS;

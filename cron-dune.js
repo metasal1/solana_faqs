@@ -4,9 +4,10 @@ import schedule from 'node-schedule';
 
 dotenv.config();
 
-const cron = process.argv[2] || process.env.CRON_DUNE_DAU;
+const cron = process.argv[2] || process.env.CRON_DUNE;
 console.log(`${import.meta.url} will run every; ${cron}`);
-const tweetSchedule = schedule.scheduleJob(cron, async function () {
+
+const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async function () {
 
     (async () => {
         try {
@@ -25,3 +26,10 @@ const tweetSchedule = schedule.scheduleJob(cron, async function () {
         }
     })();
 });
+
+const nextJob = schedule.scheduledJobs[Object.keys(schedule.scheduledJobs)[0]];
+const nextJobName = nextJob.name;
+const nextJobTime = nextJob.nextInvocation().toString();
+
+console.log('Next Job:', nextJobName);
+console.log('Next Job Time:', nextJobTime);

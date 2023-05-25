@@ -5,17 +5,17 @@ import fetch from 'node-fetch';
 
 dotenv.config();
 
-const cron = process.argv[2] || process.env.CRON_TWEET_DAU;
+const cron = process.argv[2] || process.env.CRON_TWEET_TRANSACTIONS;
 console.log(`${import.meta.url} will run every; ${cron}`);
 
 const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async function () {
 
-    const url = `https://api.solana.fm/v0/stats/active-users`;
-    const req = await fetch(url)
+    const req = await fetch(`https://api.dune.com/api/v1/query/2476143/results?api_key=${process.env.DUNE_API_KEY}`)
     const res = await req.json();
-    const dau = res.result.activeUsers.toLocaleString();
-    console.log("DAU", dau);
-    const data = `Did you know that yesterday, the number of users on Solana reached a staggering ${dau}? 🙆‍♂️`
+    console.log(res);
+    const tx = res.result.rows[0]._col0;
+    console.log("Transactions", tx);
+    const data = `Did you know the Solana Blockchain performed ${tx.toLocaleString()} transactions in the past hour ? 🤯 That's ${Math.round(tx / 60).toLocaleString()} per minute!`
 
     sendTweet(data);
 });
