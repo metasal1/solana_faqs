@@ -16,12 +16,10 @@ const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async () => {
     const faq = await findByNull();
     const tweet = faq.question + "\n\n" + faq.answer;
     const req = await tweeter(tweet);
-    if (req.status === 200) {
-        const tweetId = await req.data.id;
-        console.log(tweetId);
-        const updated = await update(faq._id, tweetId);
-        console.log(updated);
-    }
+    const tweetId = await req.data.id;
+    console.log(tweetId);
+    const updated = await update(faq._id, tweetId);
+    console.log(updated);
 });
 
 const nextJob = schedule.scheduledJobs[Object.keys(schedule.scheduledJobs)[0]];

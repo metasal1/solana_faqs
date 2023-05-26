@@ -2,6 +2,8 @@ import { MongoClient, ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 
 dotenv.config();
+const id = process.argv[2];
+const tweetId = process.argv[3];
 
 export default async function update(id, tweetId) {
     try {
@@ -30,3 +32,8 @@ export default async function update(id, tweetId) {
 }
 
 // update('645ffece57344d1fc69764a0', 'abc');
+
+if (id && tweetId) {
+    console.log(`${import.meta.url} updated ${id} with ${tweetId}`);
+    update(id, tweetId);
+}
