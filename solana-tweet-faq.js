@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import schedule from 'node-schedule';
 import findByNull from './findByNull.js';
 import update from './updatefaq.js';
-import tweeter from './tweeter.js';
+import sendTweet from './tweeter.js';
 import fetch from 'node-fetch';
 // import save from './savetodb.js';
 
@@ -16,7 +16,7 @@ const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async function
     const faq = await findByNull();
     const tweet = faq.question + " " + faq.answer;
     console.log(tweet);
-    const response = await tweeter(tweet);
+    const response = await sendTweet(tweet);
     const tweetId = response.data.id;
     console.log(tweetId);
     const updated = await update(faq._id, tweetId);

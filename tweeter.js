@@ -36,12 +36,8 @@ async function getRequest(token, tweet) {
         body: JSON.stringify({ "text": tweet })
     });
 
-    console.log(req);
-    if (req.body) {
-        return req.body;
-    } else {
-        throw new Error('Unsuccessful request');
-    }
+    const res = await req.json();
+    return res;
 }
 
 export default async function sendTweet(tweet) {
