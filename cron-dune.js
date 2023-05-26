@@ -4,7 +4,7 @@ import schedule from 'node-schedule';
 
 dotenv.config();
 
-const cron = process.argv[2] || process.env.CRON_DUNE;
+const cron = process.argv[2] || process.env.CRON_DUNE_DAU;
 console.log(`${import.meta.url} will run every; ${cron}`);
 
 const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async function () {
