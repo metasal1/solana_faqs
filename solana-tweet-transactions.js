@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import schedule from 'node-schedule';
-import sendTweet from './tweeter.js';
+import tweeter from './tweeter.js';
 import fetch from 'node-fetch';
 
 dotenv.config();
@@ -17,7 +17,7 @@ const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async function
     console.log("Transactions", tx);
     const data = `Did you know the Solana Blockchain performed ${tx.toLocaleString()} transactions in the past hour ? 🤯 That's ${Math.round(tx / 60).toLocaleString()} per minute!`
 
-    sendTweet(data);
+    tweeter(data);
 });
 
 const nextJob = schedule.scheduledJobs[Object.keys(schedule.scheduledJobs)[0]];

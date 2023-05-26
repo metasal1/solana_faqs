@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import schedule from 'node-schedule';
-import sendTweet from './tweeter.js';
+import tweeter from './tweeter.js';
 import fetch from 'node-fetch';
 
 dotenv.config();
@@ -15,7 +15,7 @@ const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async function
     const price = solanaPrice.solana.usd;
     const data = `Solana is currently $${price}`;
 
-    sendTweet(data);
+    tweeter(data);
 });
 
 const nextJob = schedule.scheduledJobs[Object.keys(schedule.scheduledJobs)[0]];

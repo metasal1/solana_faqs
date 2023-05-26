@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import schedule from 'node-schedule';
-import sendTweet from './tweeter.js';
+import tweeter from './tweeter.js';
 import fetch from 'node-fetch';
 
 dotenv.config();
@@ -17,7 +17,7 @@ const tweetSchedule = schedule.scheduleJob(import.meta.url, cron, async function
     console.log("DAU", dau);
     const data = `Did you know that yesterday, the number of users on Solana reached a staggering ${dau}? 🙆‍♂️`
 
-    sendTweet(data);
+    tweeter(data);
 });
 
 const nextJob = schedule.scheduledJobs[Object.keys(schedule.scheduledJobs)[0]];

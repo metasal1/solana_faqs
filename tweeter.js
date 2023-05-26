@@ -2,12 +2,14 @@ import crypto from 'crypto';
 import OAuth from 'oauth-1.0a';
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+
+
 dotenv.config();
 
-const access_token = process.env.TWITTER_ACCESS_TOKEN_SOLANA_FAQS;
-const access_token_secret = process.env.TWITTER_ACCESS_TOKEN_SECRET_SOLANA_FAQS;
-const consumer_key = process.env.TWITTER_CONSUMER_KEY_SOLANA_FAQS;
-const consumer_secret = process.env.TWITTER_CONSUMER_SECRET_SOLANA_FAQS;
+const access_token = process.env.TWITTER_ACCESS_TOKEN;
+const access_token_secret = process.env.TWITTER_ACCESS_TOKEN_SECRET;
+const consumer_key = process.env.TWITTER_CONSUMER_KEY;
+const consumer_secret = process.env.TWITTER_CONSUMER_SECRET;
 
 const endpointURL = `https://api.twitter.com/2/tweets`;
 
@@ -37,10 +39,10 @@ async function getRequest(token, tweet) {
     });
 
     const res = await req.json();
-    return res;
+    return res
 }
 
-export default async function sendTweet(tweet) {
+export default async function tweeter(tweet) {
     try {
         // Get user token and secret
         const userToken = {
@@ -48,11 +50,12 @@ export default async function sendTweet(tweet) {
             secret: access_token_secret
         };
         // Make the request
-        const response = await getRequest(userToken, tweet);
-        console.log(response);
+        const res = await getRequest(userToken, tweet);
+        console.log(res);
+        return res;
     } catch (e) {
         console.dir(e);
-        process.exit(-1);
     }
-    process.exit();
 }
+
+// tweeter("Hello World");
