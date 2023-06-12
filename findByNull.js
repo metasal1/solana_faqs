@@ -17,7 +17,7 @@ export default async function findByNull() {
         // Insert the FAQ object into the "faqs" collection
         const result = await faqsCollection.findOne({ tweetId: { $eq: null } });
 
-        console.log(`Tweet Found: ${result._id}  ${result.question} ${result.answer} ${result.tweetId}`);
+        // console.log(`Tweet Found: ${result._id}  ${result.question} ${result.answer} ${result.tweetId}`);
 
         // Close the database connection
         await client.close();

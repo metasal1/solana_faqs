@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>TPS</th>
+            <td id="tps"></td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td id="price"></td>
+        </tr>
+        <tr>
+            <th>Block</th>
+            <td id="block"></td>
+        </tr>
+    </table>
+    <script>
+        async function get() {
+
+            const url = "https://xray-nine.vercel.app/api/stats"
+            const data = await fetch(url)
+            const res = await data.json()
+            console.log(res)
+            document.getElementById("tps").innerHTML = `${(res[0].result.data).toFixed(0)}`
+            document.getElementById("price").innerHTML = `$${(res[1].result.data).toFixed(2)}`
+            document.getElementById("block").innerHTML = `${(res[2].result.data).toLocaleString()}`
+        }
+        get()
+
+        setInterval(get, 15000); // Fetch data every 1 minute
+
+    </script>
+</body>
+
+</html>
