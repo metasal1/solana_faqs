@@ -1,0 +1,33 @@
+obs = obslua
+source_name = "Current Time and Date"  -- This should match the name of your text source
+
+function script_description()
+    return "Updates a text source with the current time and date."
+end
+
+function script_update(settings)
+    source_name = obs.obs_data_get_string(settings, "source")
+end
+
+function script_properties()
+    props = obs.obs_properties_create()
+    obs.obs_properties_add_text(props, "source", "Text Source", obs.OBS_TEXT_DEFAULT)
+    return props
+end
+
+function set_time_and_date()
+    local text_source = obs.obs_get_source_by_name(source_name)
+    if text_source ~= nil then
+        local now = os.date("*t") -- Get the current date and time as a table
+        local text = string.format("%04d-%02d-%02d %02d:%02d:%02d", now.year, now.month, now.day, now.hour, now.min, now.sec)
+        local settings = obs.obs_data_create()
+        obs.obs_data_set_string(settings, "text", text)
+        obs.obs_source_update(text_source, settings)
+        obs.obs_data_release(settings)
+        obs.obs_source_release(text_source)
+    end
+end
+
+function script_tick(seconds)
+    set_time_and_date()
+end
